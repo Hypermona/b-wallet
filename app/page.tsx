@@ -27,6 +27,7 @@ const connectAndPay = async (setTxns: any, address: string, amount: string) => {
       to: address,
       value: ethers.utils.parseEther(amount),
     });
+    console.log(txs);
     setTxns(txs);
   } catch (err: any) {
     toast.error(err?.message);
@@ -34,7 +35,7 @@ const connectAndPay = async (setTxns: any, address: string, amount: string) => {
 };
 
 export default function Home() {
-  const [txns, setTxns] = useState();
+  const [txns, setTxns] = useState<any>();
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState("");
 
@@ -75,7 +76,12 @@ export default function Home() {
             Send
           </Button>
         </CardFooter>
-        {txns && <div className="p-5 text-green-700 m-5">{txns}</div>}
+        {txns?.hash && (
+          <div className="p-5 text-green-700 m-5 overflow-ellipsis">
+            <h6 className="text-2xl text-green-800 mb-3">Transaction Successful 🎉</h6>
+            <p className="break-words">{txns?.hash}</p>
+          </div>
+        )}
       </Card>
     </main>
   );
