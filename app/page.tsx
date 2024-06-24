@@ -16,11 +16,11 @@ import { toast } from "sonner";
 
 const connectAndPay = async (setTxns: any, address: string, amount: string) => {
   try {
-    if (!window.ethereum) {
+    if (!window?.ethereum) {
       throw new Error("No Crypto Wallet Fount, Please install it!");
     }
-    await window.ethereum.send("eth_requestAccounts");
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await window?.ethereum.send("eth_requestAccounts");
+    const provider = new ethers.providers.Web3Provider(window?.ethereum);
     const signer = provider.getSigner();
     ethers.utils.getAddress(address);
     const txs = await signer.sendTransaction({
